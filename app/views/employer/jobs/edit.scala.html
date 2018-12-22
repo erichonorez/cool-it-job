@@ -1,0 +1,31 @@
+@(jobId: String, job: Form[models.JobFormData], referer: String)(implicit messages: Messages, flash: Flash, request: RequestHeader)
+
+@import helper._
+
+@import b3.vertical.fieldConstructor
+@horizontalFieldConstructor = @{ b3.horizontal.fieldConstructor("col-md-2", "col-md-10") }
+
+@scripts = {
+    <script src="https://code.jquery.com/jquery-3.1.1.slim.min.js"
+            integrity="sha256-/SIrNqv8h6QGKDuNoLGA4iret+kyesCkHGzVUUV0shc="
+            crossorigin="anonymous"></script>
+    <script src="//cdn.ckeditor.com/4.5.11/basic/ckeditor.js"></script>
+
+    <script src="http://maps.googleapis.com/maps/api/js?key=AIzaSyBo516ynSZlBAE9zVa1gyDjLqYmoBjomZk&libraries=places"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/geocomplete/1.7.0/jquery.geocomplete.min.js"
+            integrity="sha256-fICKEQvC5yx65q5XmFCpJxbGFxG/jsMvdfvVAqxSYZI="
+            crossorigin="anonymous"></script>
+
+    <script type="text/javascript" src="@routes.Assets.versioned("javascripts/employer/jobs/create.js")"></script>
+}
+
+@main("Encode a new job", scripts) {
+
+    <div class="row">
+
+        @b3.form(controllers.employer.routes.JobController.update(jobId)) {
+            @partials.form(job, referer)
+        }
+
+    </div>
+}

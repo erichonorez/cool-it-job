@@ -1,0 +1,17 @@
+@(jobId: String, referer: String)(implicit messages: Messages, flash: Flash, request: RequestHeader)
+
+@import helper._
+
+@main("Delete") {
+
+    <div class="alert alert-warning">
+        <p>Are you sure you want to delete this ?</p>
+    </div>
+
+    <form method="POST" action="@controllers.employer.routes.JobController.delete(jobId)">
+        @CSRF.formField
+        <input type="submit" class="btn btn-danger" value="Delete"/>
+        <a href="@referer" class="btn btn-default">Cancel</a>
+    </form>
+
+}

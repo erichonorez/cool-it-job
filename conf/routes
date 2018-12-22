@@ -1,0 +1,21 @@
+# Routes
+# This file defines all application routes (Higher priority routes first)
+# ~~~~
+
+# Home routes
+GET     /                           controllers.HomeController.index
+
+# Employer module routes
+GET     /employer/jobs              controllers.employer.JobController.index
+GET     /employer/jobs/$id<[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}>           controllers.employer.JobController.show(id)
+GET     /employer/jobs/new          controllers.employer.JobController.add
+POST    /employer/jobs/create       controllers.employer.JobController.create
+GET     /employer/jobs/:id/edit     controllers.employer.JobController.edit(id)
+POST    /employer/jobs/:id/update   controllers.employer.JobController.update(id)
+GET     /employer/jobs/:id/remove   controllers.employer.JobController.remove(id)
+POST    /employer/jobs/:id/delete   controllers.employer.JobController.delete(id)
+POST    /employer/jobs/preview     controllers.employer.JobController.preview
+
+
+# Map static resources from the /public folder to the /assets URL path
+GET     /assets/*file               controllers.Assets.versioned(path="/public", file: Asset)

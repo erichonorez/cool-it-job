@@ -1,0 +1,45 @@
+# Why use a framework?
+
+## Security
+
+* CSRF: a token is added to a form and checked when the form is submitted
+* SQL Injection: Slick prevent it
+* XSS: Twirl templating engine escape all dynamic values displayed to the user
+
+## Code organisation
+
+### Views
+
+* Main template contains the common code
+* each route has a specific view included in the main template
+* each view can append specific javascript
+
+### URL
+
+* route define good looking URLs
+* easy to define parameters
+
+## Form
+
+* Validation
+ * built-in
+ * custom
+* Form templating with bootstrap
+* Display error automatically
+* GET - POST - Redirect to avoid multiple form submission
+
+
+## DB
+
+* Slick is just fucking amazing
+* Migrations
+
+## I18N
+
+## Links
+
+* http://adrianhurt.github.io/play-bootstrap/
+* http://semisafe.com/coding/2015/03/31/play_basics_templates_and_ajax.html
+* https://www.playframework.com/documentation/2.5.x/Home
+* http://pedrorijo.com/blog/play-slick/
+* http://slick.lightbend.com/doc/3.1.1/index.html

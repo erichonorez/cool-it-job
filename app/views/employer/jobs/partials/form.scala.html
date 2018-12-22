@@ -1,0 +1,39 @@
+@(job: Form[models.JobFormData], referer: String)(implicit messages: Messages, flash: Flash, request: RequestHeader)
+
+@import helper._
+@import b3.vertical.fieldConstructor
+
+@if(!job.globalErrors.isEmpty) {
+    <ul class="alert alert-danger">
+        @for(error <- job.globalErrors) {
+        <li>@Messages(error.messages, error.args)</li>
+        }
+    </ul>
+}
+
+@CSRF.formField
+@b3.text(job("title"), '_label -> "Title", 'placeholder -> "The job title goes here...")
+@b3.text(job("location"), '_label -> "Location", 'placeholder -> "Where ?")
+@b3.text(job("lat"), '_label -> "Latitude", 'class -> "sr-only", '_hideLabel -> true, '_showErrors -> false)
+@b3.text(job("lng"), '_label -> "Longitude", 'class -> "sr-only", '_hideLabel -> true, '_showErrors -> false)
+@b3.textarea(job("description"), '_label -> "Description")
+@b3.number(job("target-salary"), '_label -> "Target salary" )
+@b3.number(job("maximum-salary"), '_label -> "Maximum salary")
+
+
+<h3>Advantages</h3>
+@b3.checkbox(job("homeworking"), '_text -> "Homeworking allowed")
+@b3.checkbox(job("health-insurance"), '_text -> "Health insurance")
+@b3.checkbox(job("car"), '_text -> "Car")
+@b3.checkbox(job("lunch voucher"), '_text -> "Lunch")
+@b3.checkbox(job("bonus"), '_text -> "Bonus")
+
+@b3.free('_id -> "referer") {
+<input type="hidden" name="referer" value="@referer" />
+}
+
+<div class="form-group">
+    <input type="submit" class="btn btn-success" value="Save"/>
+    <a href="@referer" class="btn btn-default">Cancel</a>
+    <input type="submit" formaction="@controllers.employer.routes.JobController.preview" formnovalidate formtarget="_blank" class="btn btn-info" value="Preview"/>
+</div>

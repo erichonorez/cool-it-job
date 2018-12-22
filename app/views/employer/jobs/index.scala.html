@@ -1,0 +1,38 @@
+@(jobs: Seq[services.domain.Job.views.JobsByCompanyView.Job])(implicit flash: Flash)
+
+@main("Jobs") {
+
+    <h2>Jobs <a href="@controllers.employer.routes.JobController.add" class="btn btn-success pull-right">Add a job</a></h2>
+
+    <table class="table table-hover">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Job title</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            @for(job <- jobs) {
+                <tr>
+                    <td>@job.id</td>
+                    <td><a href="@controllers.employer.routes.JobController.show(job.id)">@job.title</a></td>
+                    <td>
+                        <ul class="list-inline">
+                            <li>
+                                <a href="@controllers.employer.routes.JobController.edit(job.id)" class="btn btn-link">
+                                    <span class="sr-only">edit</span> <span class="glyphicon glyphicon-pencil">&nbsp;</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="@controllers.employer.routes.JobController.remove(job.id)" class="btn btn-link">
+                                    <span class="sr-only">remove</span> <span class="glyphicon glyphicon-remove">&nbsp;</span>
+                                </a></li>
+                        </ul>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+
+}

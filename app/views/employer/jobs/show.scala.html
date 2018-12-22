@@ -1,0 +1,11 @@
+@(job: models.JobView)(implicit messages: Messages, flash: Flash)
+
+@main("Encode a new job") {
+
+    <div class="row">
+
+        <h2>@job.title</h2>
+        <p>@Html(job.description)</p>
+
+    </div>
+}

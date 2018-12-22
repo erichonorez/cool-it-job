@@ -1,0 +1,67 @@
+@*
+ * This template takes a single argument, a String containing a
+ * message to display.
+ *@
+@(jobs: Seq[services.domain.Job.views.JobLocationsView.Job])(implicit flash: Flash)
+
+@*
+ * Call the `main` template with two arguments. The first
+ * argument is a `String` with the title of the page, the second
+ * argument is an `Html` object containing the body of the page.
+ *@
+
+@scripts = {
+<script src="https://code.jquery.com/jquery-3.1.1.slim.min.js"
+        integrity="sha256-/SIrNqv8h6QGKDuNoLGA4iret+kyesCkHGzVUUV0shc="
+        crossorigin="anonymous"></script>
+ <script src="http://maps.googleapis.com/maps/api/js?key=AIzaSyBo516ynSZlBAE9zVa1gyDjLqYmoBjomZk&libraries=places"></script>
+ <script src="https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/markerclusterer.js"></script>
+ <script>
+
+  function initMap() {
+
+    var map = new google.maps.Map(document.getElementById('map'), {
+      zoom: 3,
+      center: {lat: -28.024, lng: 140.887}
+    });
+
+    // Create an array of alphabetical characters used to label the markers.
+    var labels = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+
+    // Add some markers to the map.
+    // Note: The code uses the JavaScript Array.prototype.map() method to
+    // create an array of markers based on a given "locations" array.
+    // The map() method here has nothing to do with the Google Maps API.
+    var markers = locations.map(function(location, i) {
+      return new google.maps.Marker({
+        position: location,
+        label: labels[i % labels.length]
+      });
+    });
+
+    // Add a marker clusterer to manage the markers.
+    var markerCluster = new MarkerClusterer(map, markers,
+        {imagePath: 'https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/m'});
+  }
+
+
+  var locations = [
+   @for(job <- jobs) {
+    {lat: @job.latitude, lng: @job.longitude },
+   }
+  ]
+
+  $(document).ready(function() {
+    initMap();
+  });
+ </script>
+ <style>
+  #map {
+    height: 600px;
+  }
+ </style>
+}
+
+@main("Welcome to Play", scripts) {
+ <div id="map"></div>
+}
